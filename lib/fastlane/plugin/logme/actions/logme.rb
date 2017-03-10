@@ -1,6 +1,6 @@
 module Fastlane
   module Actions
-    class Logme < Action
+    class LogmeAction < Action
 
       def self.run(options)
         regexp_filter = Regexp.new(options[:message_regexp_filters])
