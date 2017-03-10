@@ -1,3 +1,13 @@
 lane :test do
-  logme
+    commit_messages = logs_from_git_commits(
+      from_revision: ENV['GO_FROM_REVISION_MOBILE_MRP_MRPORTER'],
+      to_revision: ENV['GO_TO_REVISION_MOBILE_MRP_MRPORTER'],
+      message_regexp_filters: "^MDM|^ISIA")
+
+    hockey(
+      api_token: ENV['HOCKEY_API_TOKEN'],
+      notify: '0',
+      notes: commit_messages
+    )
+
 end
