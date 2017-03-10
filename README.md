@@ -24,6 +24,7 @@ Just invoke *logme* in your Fastfile action. Logme will return the commit messag
 | `to_revision` | End revision commit | false |
 | `from_revision` | From revision commit | false |
 | `message_regexp_filters` | Regexp filters like. ie '^MDM-\|^CTS:' | true |
+| `message_regexp_exclude_filters` | Regexp filters like. ie '^MDM-TST\|^CTS:UI' | true |
 
 ## Example
 Check out the [example `Fastfile`](fastlane/Fastfile) to see how to use this plugin. Try it by cloning the repo, running `fastlane install_plugins` and `bundle exec fastlane test`.
