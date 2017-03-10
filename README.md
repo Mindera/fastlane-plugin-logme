@@ -13,8 +13,19 @@ fastlane add_plugin logme
 ## About logme
 Logme is an action that provides a simple way to get logs from two delta commits
 
-## Example
+## Why?
+Has we use a Continues Delivery, we need a way to create release notes automatically
 
+## How to use it?
+Just invoke *logme* in your Fastfile action. Logme will return the commit messages
+
+| Option | Description | Optional |
+|---|---|---|
+| `to_revision` | End revision commit | false |
+| `from_revision` | From revision commit | false |
+| `message_regexp_filters` | Regexp filters like. ie '^MDM-\|^CTS:' | true |
+
+## Example
 Check out the [example `Fastfile`](fastlane/Fastfile) to see how to use this plugin. Try it by cloning the repo, running `fastlane install_plugins` and `bundle exec fastlane test`.
 
 ## Issues and Feedback
