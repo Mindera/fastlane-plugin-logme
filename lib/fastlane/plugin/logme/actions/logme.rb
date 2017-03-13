@@ -8,7 +8,6 @@ module Fastlane
         Actions.sh("git log --pretty=format:\"%s\" --no-merges #{options[:from_revision]}...#{options[:to_revision]}")
             .split(/\n/)
             .select{|message| message[regexp_filter] != nil}
-            .select{|message| message[exclude_regexp_filter] == nil}
             .join("\n")
       end
 
@@ -30,10 +29,6 @@ module Fastlane
                                          optional: false),
             FastlaneCore::ConfigItem.new(key: :message_regexp_filters,
                                          description: "Regexp filters like. ie '^MDM-|^CTS:'",
-                                         default_value: '.',
-                                         optional: true),
-            FastlaneCore::ConfigItem.new(key: :message_regexp_exclude_filters,
-                                         description: "Regexp filters like. ie '^MDM-TST|^MDM-UI'",
                                          default_value: '.',
                                          optional: true)
         ]
