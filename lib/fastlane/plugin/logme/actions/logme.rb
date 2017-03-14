@@ -7,7 +7,7 @@ module Fastlane
         Actions.sh("git log --pretty=format:\"%s\" --no-merges --ancestry-path #{options[:from_revision]}...#{options[:to_revision]}")
             .split(/\n/)
             .select{|message| message[regexp_filter] != nil}
-            .join("\n")
+            .join("\n\r")
       end
 
       def self.return_value
