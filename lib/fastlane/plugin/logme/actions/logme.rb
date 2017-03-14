@@ -4,8 +4,7 @@ module Fastlane
 
       def self.run(options)
         regexp_filter = Regexp.new(options[:message_regexp_filters])
-        exclude_regexp_filter = Regexp.new(options[:message_regexp_exclude_filters])
-        Actions.sh("git log --pretty=format:\"%s\" --no-merges #{options[:from_revision]}...#{options[:to_revision]}")
+        Actions.sh("git log --pretty=format:\"%s\" --no-merges --ancestry-path #{options[:from_revision]}...#{options[:to_revision]}")
             .split(/\n/)
             .select{|message| message[regexp_filter] != nil}
             .join("\n")
