@@ -7,7 +7,7 @@ module Fastlane
         changes = Actions.sh("git log --pretty=\"%s\" --no-merges #{options[:from_revision]}...#{options[:to_revision]}")
                       .split(/\n/)
 
-        if options[:remove_older_merge_commits]
+        if options[:remove_commits_already_merged]
           merges = Actions.sh("git log --pretty=\"%b\" --merges #{options[:from_revision]}...#{options[:to_revision]}")
                        .split("* commit")
 
@@ -41,8 +41,8 @@ module Fastlane
                                          description: "Regexp filters like. ie '^MDM-|^CTS:'",
                                          default_value: '.',
                                          optional: true),
-            FastlaneCore::ConfigItem.new(key: :remove_older_merge_commits,
-                                         description: "Remove commit messages already merged",
+            FastlaneCore::ConfigItem.new(key: :remove_commits_already_merged,
+                                         description: 'Remove commit messages already merged',
                                          default_value: false,
                                          is_string: false,
                                          optional: true)
