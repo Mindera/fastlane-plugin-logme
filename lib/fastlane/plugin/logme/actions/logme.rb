@@ -42,7 +42,7 @@ module Fastlane
                                          default_value: '.',
                                          optional: true),
             FastlaneCore::ConfigItem.new(key: :remove_older_merge_commits,
-                                         description: "Remove older commits that already was merge",
+                                         description: "Remove commit messages already merged",
                                          default_value: false,
                                          is_string: false,
                                          optional: true)

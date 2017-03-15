@@ -24,7 +24,7 @@ Just invoke *logme* in your Fastfile action. Logme will return the commit messag
 | `to_revision` | End revision commit | false | |
 | `from_revision` | From revision commit | false | |
 | `message_regexp_filters` | Regexp filters like. ie '^MDM-\|^CTS:' | true | `.` |
-| `remove_older_merge_commits` | Remove older commit's that already was merge | true | `false` |
+| `remove_older_merge_commits` | Remove commit messages already merged | true | `false` |
 
 ## Example
 Check out the [example `Fastfile`](fastlane/Fastfile) to see how to use this plugin. Try it by cloning the repo, running `fastlane install_plugins` and `bundle exec fastlane test`.
