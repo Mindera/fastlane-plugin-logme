@@ -4,11 +4,11 @@ module Fastlane
 
       def self.run(options)
         regexp_filter = Regexp.new(options[:message_regexp_filters])
-        changes = Actions.sh("git log --pretty=\"%s\" --no-merges #{options[:from_revision]}~1...#{options[:to_revision]}")
+        changes = Actions.sh("git log --pretty=\"%s\" --no-merges #{options[:from_revision]}...#{options[:to_revision]}")
                       .split(/\n/)
 
         if options[:remove_older_merge_commits]
-          merges = Actions.sh("git log --pretty=\"%b\" --merges #{options[:from_revision]}~1...#{options[:to_revision]}")
+          merges = Actions.sh("git log --pretty=\"%b\" --merges #{options[:from_revision]}...#{options[:to_revision]}")
                        .split("* commit")
 
           merges.delete_at(0) # empty value
