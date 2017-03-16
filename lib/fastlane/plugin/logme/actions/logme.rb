@@ -4,9 +4,20 @@ module Fastlane
 
       def self.run(options)
         regexp_filter = Regexp.new(options[:message_regexp_filters])
-        Actions.sh("git log --pretty=format:\"%s\" --no-merges --ancestry-path #{options[:from_revision]}...#{options[:to_revision]}")
-            .split(/\n/)
-            .select{|message| message[regexp_filter] != nil}
+        changes = Actions.sh("git log --pretty=\"%s\" --no-merges #{options[:from_revision]}...#{options[:to_revision]}")
+                      .split(/\n/)
+
+        if options[:remove_commits_already_merged]
+          merges = Actions.sh("git log --pretty=\"%b\" --merges #{options[:from_revision]}...#{options[:to_revision]}")
+                       .split("* commit")
+
+          merges.delete_at(0) # empty value
+          merges.delete_at(0) # last merge
+          merges = merges.join("\n")
+          changes.delete_if{|commit| merges.include?(commit) }
+        end
+
+        changes.select{|message| message[regexp_filter] != nil}
             .join("\n\r")
       end
 
@@ -29,6 +40,11 @@ module Fastlane
             FastlaneCore::ConfigItem.new(key: :message_regexp_filters,
                                          description: "Regexp filters like. ie '^MDM-|^CTS:'",
                                          default_value: '.',
+                                         optional: true),
+            FastlaneCore::ConfigItem.new(key: :remove_commits_already_merged,
+                                         description: 'Remove commit messages already merged',
+                                         default_value: false,
+                                         is_string: false,
                                          optional: true)
         ]
       end
